@@ -173,7 +173,7 @@ def pregunta_09():
     col3 =[ i.split("-") for i in tbl0["_c3"].values]   
     year=pd.DataFrame(data={"year":[i[0] for i in col3]})
     total = pd.concat([tbl0,year], axis=1)
-    return print(total)
+    return total
 
 
 def pregunta_10():
@@ -197,7 +197,7 @@ def pregunta_10():
     letter.sort()
     valores =tbl0.groupby("_c1")["_c2"]
     listafin= [valores.get_group(i).values for i in letter]
-    listafin = [str(sorted(listafin[i])).replace(",",":").replace("[","").replace("]","") for i in range(len(listafin))]
+    listafin = [str(sorted(listafin[i])).replace(",",":").replace("[",""").replace("]",""") for i in range(len(listafin))]
     total = pd.concat([pd.DataFrame(data={"_c0":letter}),pd.DataFrame(data={"_c1":listafin})], axis=1)
     return total
 
