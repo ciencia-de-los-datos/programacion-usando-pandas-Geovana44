@@ -197,7 +197,7 @@ def pregunta_10():
     letter.sort()
     valores =tbl0.groupby("_c1")["_c2"]
     listafin= [valores.get_group(i).values for i in letter]
-    listafin = [str(sorted(listafin[i])).replace(",",":").replace("[",""").replace("]",""") for i in range(len(listafin))]
+    listafin = [str(sorted(listafin[i])).replace(",",":").replace("[","").replace("]","") for i in range(len(listafin))]
     total = pd.concat([pd.DataFrame(data={"_c0":letter}),pd.DataFrame(data={"_c1":listafin})], axis=1)
     return total
 
