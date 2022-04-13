@@ -35,7 +35,7 @@ def pregunta_02():
 
     """
     col = tbl0.shape[1]
-    return print(col)
+    return col
 
 
 
@@ -57,7 +57,7 @@ def pregunta_03():
     
     col1 = tbl0[name_col1].value_counts() #col1 = tbl0.iloc[:,[1]]
     total = col1.sort_index()
-    return print(total)
+    return total
 
 
 def pregunta_04():
