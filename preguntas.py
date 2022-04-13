@@ -7,7 +7,7 @@ Este archivo contiene las preguntas que se van a realizar en el laboratorio.
 Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preguntas.
 
 """
-import pandas as pd
+import pandas as pd 
 
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
@@ -22,7 +22,8 @@ def pregunta_01():
     40
 
     """
-    return
+    filas = len(tbl0)
+    return filas
 
 
 def pregunta_02():
@@ -33,7 +34,9 @@ def pregunta_02():
     4
 
     """
-    return
+    col = tbl0.shape[1]
+    return print(col)
+
 
 
 def pregunta_03():
@@ -50,7 +53,11 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    name_col1 = tbl0.columns[1]
+    
+    col1 = tbl0[name_col1].value_counts() #col1 = tbl0.iloc[:,[1]]
+    total = col1.sort_index()
+    return print(total)
 
 
 def pregunta_04():
@@ -65,7 +72,10 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    name_col1 = tbl0.columns[1]
+    name_col2 = tbl0.columns[2]
+    total =tbl0.groupby(name_col1)[name_col2].mean()
+    return total
 
 
 def pregunta_05():
@@ -82,7 +92,11 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    name_col1 = tbl0.columns[1]
+    name_col2 = tbl0.columns[2]
+    total =tbl0.groupby(name_col1)[name_col2].max()
+    return total
+    
 
 
 def pregunta_06():
@@ -94,7 +108,9 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    tblf = tbl1.drop_duplicates("_c4").values
+    col4 = [i[1].upper() for i in tblf]
+    return sorted(col4)
 
 
 def pregunta_07():
@@ -110,8 +126,11 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
-
+    name_col1 = tbl0.columns[1]
+    name_col2 = tbl0.columns[2]
+    total =tbl0.groupby(name_col1)[name_col2].sum()
+    return total
+pregunta_07()
 
 def pregunta_08():
     """
