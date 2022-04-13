@@ -199,8 +199,8 @@ def pregunta_10():
     listafin= [valores.get_group(i).values for i in letter]
     listafin = [str(sorted(listafin[i])).replace(",",":").replace("[","").replace("]","") for i in range(len(listafin))]
     total = pd.concat([pd.DataFrame(data={"_c0":letter}),pd.DataFrame(data={"_c1":listafin})], axis=1)
-    return print(total)
-pregunta_10()
+    return total
+
 
 def pregunta_11():
     """
