@@ -7,6 +7,7 @@ Este archivo contiene las preguntas que se van a realizar en el laboratorio.
 Utilice los archivos `tbl0.tsv`, `tbl1.tsv` y `tbl2.tsv`, para resolver las preguntas.
 
 """
+from operator import index
 import pandas as pd 
 
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
@@ -130,7 +131,7 @@ def pregunta_07():
     name_col2 = tbl0.columns[2]
     total =tbl0.groupby(name_col1)[name_col2].sum()
     return total
-pregunta_07()
+
 
 def pregunta_08():
     """
@@ -147,7 +148,10 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    suma={"suma":tbl0["_c0"]+tbl0["_c2"]}
+    sumaf= pd.DataFrame(data=suma)
+    total = pd.concat([tbl0,sumaf], axis=1)
+    return total
 
 
 def pregunta_09():
@@ -165,7 +169,11 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+   
+    col3 =[ i.split("-") for i in tbl0["_c3"].values]   
+    year=pd.DataFrame(data={"year":[i[0] for i in col3]})
+    total = pd.concat([tbl0,year], axis=1)
+    return print(total)
 
 
 def pregunta_10():
@@ -182,8 +190,17 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
-
+       
+    
+    datar = tbl0.drop_duplicates("_c1")
+    letter=datar["_c1"].values
+    letter.sort()
+    valores =tbl0.groupby("_c1")["_c2"]
+    listafin= [valores.get_group(i).values for i in letter]
+    listafin = [str(sorted(listafin[i])).replace(",",":").replace("[","").replace("]","") for i in range(len(listafin))]
+    total = pd.concat([pd.DataFrame(data={"_c0":letter}),pd.DataFrame(data={"_c1":listafin})], axis=1)
+    return print(total)
+pregunta_10()
 
 def pregunta_11():
     """
