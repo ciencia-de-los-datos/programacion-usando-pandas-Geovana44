@@ -275,7 +275,7 @@ def pregunta_13():
     valores = nueva.groupby("_c1")["_c5b"].sum()
     
 
-    return print(nueva)
+    return valores
 
     
 """
