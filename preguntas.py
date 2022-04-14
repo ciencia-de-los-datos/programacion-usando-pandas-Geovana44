@@ -189,18 +189,17 @@ def pregunta_10():
     2   C                    0:5:6:7:9
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
-    
-    
     """
     letter= sorted(tbl0["_c1"].unique())
     valores =tbl0.groupby("_c1")["_c2"] 
-    listafin= [":".join(map(str, valores.get_group(i))) for i in letter]
-    d1=pd.DataFrame({"_c0":letter})
-    d2=pd.DataFrame({"_c1":listafin})
-    total = pd.concat([d1,d2], axis=1)
-    total.set_index("_c0", inplace=True)
+    listafin= [":".join(map(str, sorted(valores.get_group(i)))) for i in letter]
+    d1=pd.DataFrame({"_c1":letter})
+    d2=pd.DataFrame({"_c2":listafin})
+    total = (pd.concat([d1,d2], axis=1))
+    total.set_index("_c1", inplace=True)
+    
     #valores =list(tbl0.groupby("_c1", as_index=False)["_c2"].__iter__())
-    #total = pd.concat(,total], axis=1)
+    #total = pd.concat(,total], axis=1)   
     return total
 
 
