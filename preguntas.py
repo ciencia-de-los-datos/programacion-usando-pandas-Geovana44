@@ -189,16 +189,18 @@ def pregunta_10():
     2   C                    0:5:6:7:9
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
-    """
-       
     
-    datar = tbl0.drop_duplicates("_c1")
-    letter=datar["_c1"].values
-    letter.sort()
-    valores =tbl0.groupby("_c1")["_c2"]
-    listafin= [valores.get_group(i).values for i in letter]
-    listafin = [str(sorted(listafin[i])).replace(",",":").replace("[","").replace("]","") for i in range(len(listafin))]
-    total = pd.concat([pd.DataFrame(data={"_c0":letter}),pd.DataFrame(data={"_c1":listafin})], axis=1)
+    
+    """
+    letter= sorted(tbl0["_c1"].unique())
+    valores =tbl0.groupby("_c1")["_c2"] 
+    listafin= [":".join(map(str, valores.get_group(i))) for i in letter]
+    d1=pd.DataFrame({"_c0":letter})
+    d2=pd.DataFrame({"_c1":listafin})
+    total = pd.concat([d1,d2], axis=1)
+    total.set_index("_c0", inplace=True)
+    #valores =list(tbl0.groupby("_c1", as_index=False)["_c2"].__iter__())
+    #total = pd.concat(,total], axis=1)
     return total
 
 
@@ -218,7 +220,13 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    num= sorted(tbl1["_c0"].unique())
+    valores =tbl1.groupby("_c0")["_c4"] 
+    listafin= [",".join(map(str, sorted(valores.get_group(i)))) for i in num]
+    d1=pd.DataFrame({"_c0":num})
+    d2=pd.DataFrame({"_c4":listafin})
+    total = pd.concat([d1,d2], axis=1)
+    return total
 
 
 def pregunta_12():
@@ -235,8 +243,18 @@ def pregunta_12():
     37   37                    eee:0,fff:2,hhh:6
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
+    se estan juntando dos columans y la separamos por :
+    sorted(valores.get_group(i)["_c5a"].map(str)+ ":"+ valores.get_group(i)["_c5b"].map(str))
     """
-    return
+    
+    valores = tbl2.groupby("_c0")[["_c5a","_c5b"]]
+    num= sorted(tbl2["_c0"].unique())
+    b=[",".join(map(str, sorted(valores.get_group(i)["_c5a"].map(str)+ ":"+ valores.get_group(i)["_c5b"].map(str)))) for i in num]
+    d1=pd.DataFrame({"_c0":num})
+    d2=pd.DataFrame({"_c4":b})
+    total = pd.concat([d1,d2], axis=1)
+    
+    return total
 
 
 def pregunta_13():
@@ -253,4 +271,28 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    nueva= pd.merge(tbl0,tbl2, on="_c0")  #combina tabla segun _Co para dejarla de la dim mayor
+    valores = nueva.groupby("_c1")["_c5b"].sum()
+    
+
+    return print(nueva)
+
+    
+"""
+        Otro 10 no sirvio
+        datar = tbl0.drop_duplicates("_c1")
+        letter=datar["_c1"].values
+        letter.sort()
+        valores =tbl0.groupby("_c1")["_c2"]
+        listafin= [valores.get_group(i).values for i in letter]
+        listafin = [str(sorted(listafin[i])).replace(",",":").replace("[","").replace("]","") for i in range(len(listafin))]
+        total = pd.concat([pd.DataFrame(data={"_c0":letter}),pd.DataFrame(data={"_c1":listafin})], axis=1)
+        
+        letter= sorted(tbl0["_c1"].unique())
+        valores =tbl0.groupby("_c1")["_c2"] 
+        listafin= [":".join(map(str, valores.get_group(i))) for i in letter]
+        d1=pd.DataFrame({"_c0":letter})
+        d2=pd.DataFrame({"_c1":listafin})
+        total = pd.concat([d1,d2], axis=1)
+        total.set_index("_c0", inplace=True)
+"""
