@@ -251,7 +251,7 @@ def pregunta_12():
     num= sorted(tbl2["_c0"].unique())
     b=[",".join(map(str, sorted(valores.get_group(i)["_c5a"].map(str)+ ":"+ valores.get_group(i)["_c5b"].map(str)))) for i in num]
     d1=pd.DataFrame({"_c0":num})
-    d2=pd.DataFrame({"_c4":b})
+    d2=pd.DataFrame({"_c5":b})
     total = pd.concat([d1,d2], axis=1)
     
     return total
